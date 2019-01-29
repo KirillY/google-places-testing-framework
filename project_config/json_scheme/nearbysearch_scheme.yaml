@@ -1,0 +1,57 @@
+definitions:
+  Nearbysearch:
+    properties:
+      html_attributions: {type: array}
+      results:
+        items:
+          properties:
+            alt_ids:
+              items:
+                properties:
+                  place_id: {type: string}
+                  scope: {type: string}
+                required: [place_id, scope]
+                type: object
+              type: array
+            geometry:
+              properties:
+                location:
+                  properties:
+                    lat: {type: number}
+                    lng: {type: number}
+                  required: [lat, lng]
+                  type: object
+              required: [location]
+              type: object
+            icon: {type: string, }
+            id: {type: string}
+            name: {type: string}
+            opening_hours:
+              properties:
+                open_now: {type: boolean}
+              required: [open_now]
+              type: object
+            photos:
+              items:
+                properties:
+                  height: {type: integer}
+                  html_attributions: {type: array}
+                  photo_reference: {type: string}
+                  width: {type: integer}
+                required: [height, html_attributions, photo_reference, width]
+                type: object
+              type: array
+            place_id: {type: string}
+            reference: {type: string}
+            scope: {type: string}
+            types:
+              items: {type: string}
+              type: array
+            vicinity: {type: string}
+          required: [geometry, icon, id, name, photos, place_id, reference, scope, types,
+            vicinity]
+          type: object
+        type: array
+      status: {type: string}
+      required: [html_attributions, results, status]
+      type: object

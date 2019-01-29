@@ -1,0 +1,448 @@
+- consumes: application/json
+  deprecated: false
+  description: If passed a placeid, the assembly will perform a Places Details request,
+    to get more details about a given business.
+  id: 261fda9.28adba6
+  parameters:
+  - {description: 'Your application''s API key. This key identifies your application
+      for purposes of quota management. (https://code.google.com/apis/console/)',
+    in: query, name: key, required: true, type: string}
+  - {description: A unique identifier that is returned from a Google Places request.,
+    in: query, name: placeid, required: true, type: string}
+  - {description: The language in which to return results., in: query, name: language,
+    required: false, type: string}
+  - {description: 'Indicates if the Place Details response should include additional
+      fields. Additional fields may include Premium data, requiring an additional
+      license, or values that are not commonly requested. Extensions are currently
+      experimental. Supported values for the extensions parameter are {review_summary}.',
+    in: query, name: extension, required: false, type: string}
+  produces: application/json
+  responses:
+    '200':
+      description: Detailed decription of the requested business.
+      schema:
+        properties:
+          result: {type: string}
+          status: {type: string}
+    '400':
+      description: Your request was malformed, either by missing or incorrect parameters.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '401':
+      description: You provided an API Key that is invalid, or is not authorized to
+        use the Google Places API
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '429':
+      description: You have used the daily allotment of Google Places requests for
+        the provided API Key.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '500':
+      description: An unknown error occurred. Please try your request again.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+  summary: Google Places Details Search
+  tags: GooglePlaces
+  type: swagger-doc
+- consumes: application/json
+  deprecated: false
+  description: If passed a query string, the assembly will perform a Places Text request,
+    allowing Google to process natural language and return matching businesses (eg.
+    \"Restaurants in Sydney\").
+  id: fe328b6d.c4f568
+  parameters:
+  - {description: 'Your application''s API key. This key identifies your application
+      for purposes of quota management. (https://code.google.com/apis/console/)',
+    in: query, name: key, required: true, type: string}
+  - {description: 'The text string on which to search, for example: "restaurant".
+      The Google Places service will return candidate matches based on this string
+      and order the results based on their perceived relevance.', in: query, name: query,
+    required: true, type: string}
+  - {description: Latitude point to be sent to Google to be used as the center point
+      for the request., in: query, name: lat, required: false, type: number}
+  - {description: Longitude point to be sent to Google to be used as the center point
+      for the request., in: query, name: lon, required: false, type: number}
+  - {description: Defines the distance (in meters) within which to return place results.
+      The maximum allowed radius is 50000 meters., in: query, name: radius, required: false,
+    type: integer}
+  - {description: The language in which to return results., in: query, name: language,
+    required: false, type: string}
+  - {description: 'Restricts results to only those places within the specified price
+      level. Valid values are in the range from 0 (most affordable) to 4 (most expensive),
+      inclusive.', in: query, name: minprice, required: false, type: string}
+  - {description: 'Restricts results to only those places within the specified price
+      level. Valid values are in the range from 0 (most affordable) to 4 (most expensive),
+      inclusive.', in: query, name: maxprice, required: false, type: string}
+  - {description: 'Restricts the results to places matching at least one of the specified
+      types. Types should be separated with a pipe symbol (type1|type2|etc). (https://developers.google.com/places/documentation/supported_types
+      for supported types)', in: query, name: types, required: false, type: string}
+  - {description: 'If set to true, will only return results that are currently open
+      now.', in: query, name: opennow, required: false, type: boolean}
+  produces: application/json
+  responses:
+    '200':
+      description: An array of results matching the supplied parameters.
+      schema:
+        properties:
+          results: {type: string}
+          status: {type: string}
+    '400':
+      description: Your request was malformed, either by missing or incorrect parameters.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '401':
+      description: You provided an API Key that is invalid, or is not authorized to
+        use the Google Places API.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '429':
+      description: You have used the daily allotment of Google Places requests for
+        the provided API Key.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '500':
+      description: An unknown error occurred. Please try your request again.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+  summary: Google Places Text Search
+  tags: GooglePlaces
+  type: swagger-doc
+- consumes: application/json
+  deprecated: false
+  description: If passed a latitude/longitude coordinate set, the assembly will perform
+    a Places Nearby request, to discover businesses within a certain distance of the
+    given location.
+  id: 593b6d9.9c69a14
+  parameters:
+  - {description: 'Your application''s API key. This key identifies your application
+      for purposes of quota management. (https://code.google.com/apis/console/)',
+    in: query, name: key, required: true, type: string}
+  - {description: Latitude point to be sent to Google to be used as the center point
+      for the request., in: query, name: lat, required: true, type: number}
+  - {description: Longitude point to be sent to Google to be used as the center point
+      for the request., in: query, name: lon, required: true, type: number}
+  - {description: 'Defines the distance (in meters) within which to return place results.
+      The maximum allowed radius is 50000 meters. (Required if rankby=prominence.
+      If rankby=distance, radius is not allowed)', in: query, name: radius, required: false,
+    type: integer}
+  - {description: 'A term to be matched against all content that Google has indexed
+      for this place, including but not limited to name, type, and address, as well
+      as customer reviews and other third-party content.', in: query, name: keyword,
+    required: false, type: string}
+  - {description: The language in which to return results., in: query, name: language,
+    required: false, type: string}
+  - {description: 'Restricts results to only those places within the specified price
+      level. Valid values are in the range from 0 (most affordable) to 4 (most expensive),
+      inclusive.', in: query, name: minprice, required: false, type: integer}
+  - {description: 'Restricts results to only those places within the specified price
+      level. Valid values are in the range from 0 (most affordable) to 4 (most expensive),
+      inclusive.', in: query, name: maxprice, required: false, type: integer}
+  - {description: The name of the business to search for., in: query, name: name,
+    required: false, type: string}
+  - {description: 'Restricts the results to places matching at least one of the specified
+      types. Types should be separated with a pipe symbol (type1|type2|etc). (https://developers.google.com/places/documentation/supported_types
+      for supported types)', in: query, name: types, required: false, type: string}
+  - {description: 'If set to true, will only return results that are currently open
+      now.', in: query, name: opennow, required: false, type: boolean}
+  produces: application/json
+  responses:
+    '200':
+      description: An array of results matching the supplied parameters.
+      schema:
+        properties:
+          results: {type: string}
+          status: {type: string}
+    '400':
+      description: Your request was malformed, either by missing or incorrect parameters.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '401':
+      description: You provided an API Key that is invalid, or is not authorized to
+        use the Google Places API
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+    '429':
+      description: You have used the daily allotment of Google Places requests for
+        the provided API Key.
+      schema:
+        properties:
+          error: {}
+          status: {type: string}
+    '500':
+      description: An unknown error occurred. Please try your request again.
+      schema:
+        properties:
+          error: {type: string}
+          status: {type: string}
+  summary: Google Places Nearby Search
+  tags: GooglePlaces
+  type: swagger-doc
+- id: cbe10941.d35978
+  name: ''
+  type: catch
+  wires:
+  - [684c042b.1ea75c]
+  x: 108
+  y: 367
+  z: a37c852.f41b9f8
+- func: "var error = msg._error;\nmsg.payload = error;\nif(error){\n    msg.statusCode\
+    \ = error.code || 500;\n} else{\n    msg.statusCode = 500;\n}\nreturn msg;"
+  id: 684c042b.1ea75c
+  name: Move error to http-out
+  outputs: 1
+  type: function
+  wires:
+  - [19cdd193.3c105e]
+  x: 333
+  y: 367
+  z: a37c852.f41b9f8
+- id: 19cdd193.3c105e
+  name: ''
+  type: http response
+  wires: []
+  x: 523
+  y: 367
+  z: a37c852.f41b9f8
+- id: 4305045c.0c1d54
+  method: get
+  name: ''
+  swaggerDoc: 593b6d9.9c69a14
+  type: http in
+  url: /places/nearby
+  wires:
+  - [8e4d57b.7d2cfa8]
+  x: 187
+  y: 159
+  z: a37c852.f41b9f8
+- id: 41a8416f.3ee9
+  name: ''
+  type: http response
+  wires: []
+  x: 1306
+  y: 203
+  z: a37c852.f41b9f8
+- func: "msg.location = {};\nif(msg.req.query.lat || msg.req.query.lon){\n\tmsg.location.lat\
+    \ = msg.req.query.lat;\n\tmsg.location.lon = msg.req.query.lon;\n}\nif(msg.req.query.key){\n\
+    \tmsg.key = msg.req.query.key;\n}\nif(msg.req.query.radius){\n\tmsg.location.radius\
+    \ = msg.req.query.radius;\n}\nif(msg.req.query.rankby){\n\tmsg.rankby = msg.req.query.rankby;\n\
+    }\nif(msg.req.query.keyword){\n\tmsg.keyword = msg.req.query.keyword;\n}\nif(msg.req.query.language){\n\
+    \tmsg.language = msg.req.query.language;\n}\nif(msg.req.query.minprice){\n\tmsg.minprice\
+    \ = msg.req.query.minprice;\n}\nif(msg.req.query.maxprice){\n\tmsg.maxprice =\
+    \ msg.req.query.maxprice;\n}\nif(msg.req.query.name){\n\tmsg.name = msg.req.query.name;\n\
+    }\nif(msg.req.query.types){\n\tmsg.types = msg.req.query.types;\n}\nif(msg.req.query.opennow){\n\
+    \tmsg.opennow = msg.req.query.opennow;\n}\nif(msg.req.query.zagatselected){\n\t\
+    msg.zagatselected = msg.req.query.zagatselected;\n}\nif(msg.req.query.extensions){\n\
+    \tmsg.extensions = msg.req.query.extensions;\n}\ndelete msg.payload;\nreturn msg;"
+  id: 8e4d57b.7d2cfa8
+  name: Move Query Params to Msg
+  outputs: 1
+  type: function
+  wires:
+  - [71b17ddb.2a3bcc]
+  x: 495
+  y: 159
+  z: a37c852.f41b9f8
+- extensions: ''
+  googleAPI: ''
+  id: 11d22936.c8c597
+  keyword: ''
+  language: ''
+  lat: ''
+  lon: ''
+  maxPrice: ''
+  minPrice: ''
+  name: ''
+  openNow: false
+  outputas: single
+  outputnumber: '20'
+  placeId: ''
+  placeName: ''
+  query: ''
+  radius: ''
+  rankBy: ''
+  reqType: placesText
+  type: google places
+  types: ''
+  wires:
+  - [ba4fc504.5d70f]
+  x: 780
+  y: 210
+  z: a37c852.f41b9f8
+- extensions: ''
+  googleAPI: ''
+  id: fdf08290.07906
+  keyword: ''
+  language: ''
+  lat: ''
+  lon: ''
+  maxPrice: ''
+  minPrice: ''
+  name: ''
+  openNow: ''
+  outputas: single
+  outputnumber: '20'
+  placeId: ''
+  placeName: ''
+  query: ''
+  radius: ''
+  rankBy: ''
+  reqType: placesDetails
+  type: google places
+  types: ''
+  wires:
+  - [afe3a964.6655d8]
+  x: 780
+  y: 257
+  z: a37c852.f41b9f8
+- func: "if(typeof(msg.payload) == typeof([])){\n    var results = [];\n    for(var\
+    \ i = 0; i < msg.payload.length; i++){\n\t    results[i] = msg.payload[i].payload;\n\
+    \    }\n    msg.payload = {\n    \tresults: results,\n    \tstatus: msg.status,\n\
+    \    };\n}\n\nif(msg.html_attributions){\n\tmsg.payload.html_attributions = msg.html_attributions;\n\
+    }\nreturn msg;"
+  id: af58d24d.936c38
+  name: Convert msg to http out
+  outputs: 1
+  type: function
+  wires:
+  - [41a8416f.3ee9]
+  x: 1076
+  y: 171
+  z: a37c852.f41b9f8
+- extensions: ''
+  googleAPI: ''
+  id: 71b17ddb.2a3bcc
+  keyword: ''
+  language: ''
+  lat: ''
+  lon: ''
+  maxPrice: ''
+  minPrice: ''
+  name: ''
+  openNow: false
+  outputas: single
+  outputnumber: '20'
+  placeId: ''
+  placeName: ''
+  query: ''
+  radius: ''
+  rankBy: ''
+  reqType: placesNearby
+  type: google places
+  types: ''
+  wires:
+  - [af58d24d.936c38]
+  x: 777
+  y: 159
+  z: a37c852.f41b9f8
+- func: "msg.location = {};\nif(msg.req.query.lat || msg.req.query.lon){\n\tmsg.location.lat\
+    \ = msg.req.query.lat;\n\tmsg.location.lon = msg.req.query.lon;\n}\nif(msg.req.query.key){\n\
+    \tmsg.key = msg.req.query.key;\n}\nif(msg.req.query.radius){\n\tmsg.location.radius\
+    \ = msg.req.query.radius;\n}\nif(msg.req.query.rankby){\n\tmsg.rankby = msg.req.query.rankby;\n\
+    }\nif(msg.req.query.keyword){\n\tmsg.keyword = msg.req.query.keyword;\n}\nif(msg.req.query.language){\n\
+    \tmsg.language = msg.req.query.language;\n}\nif(msg.req.query.minprice){\n\tmsg.minprice\
+    \ = msg.req.query.minprice;\n}\nif(msg.req.query.maxprice){\n\tmsg.maxprice =\
+    \ msg.req.query.maxprice;\n}\nif(msg.req.query.name){\n\tmsg.name = msg.req.query.name;\n\
+    }\nif(msg.req.query.types){\n\tmsg.types = msg.req.query.types;\n}\nif(msg.req.query.opennow){\n\
+    \tmsg.opennow = msg.req.query.opennow;\n}\nif(msg.req.query.zagatselected){\n\t\
+    msg.zagatselected = msg.req.query.zagatselected;\n}\nif(msg.req.query.query){\n\
+    \tmsg.query = msg.req.query.query;\n}\nif(msg.req.query.extensions){\n\tmsg.extensions\
+    \ = msg.req.query.extensions;\n}\ndelete msg.payload;\nreturn msg;"
+  id: b1d63a8f.f29438
+  name: Move Query Params to Msg
+  outputs: 1
+  type: function
+  wires:
+  - [11d22936.c8c597]
+  x: 497
+  y: 210
+  z: a37c852.f41b9f8
+- func: "msg.location = {};\nif(msg.req.query.lat || msg.req.query.lon){\n\tmsg.location.lat\
+    \ = msg.req.query.lat;\n\tmsg.location.lon = msg.req.query.lon;\n}\nif(msg.req.query.key){\n\
+    \tmsg.key = msg.req.query.key;\n}\nif(msg.req.query.radius){\n\tmsg.location.radius\
+    \ = msg.req.query.radius;\n}\nif(msg.req.query.rankby){\n\tmsg.rankby = msg.req.query.rankby;\n\
+    }\nif(msg.req.query.keyword){\n\tmsg.keyword = msg.req.query.keyword;\n}\nif(msg.req.query.language){\n\
+    \tmsg.language = msg.req.query.language;\n}\nif(msg.req.query.minprice){\n\tmsg.minprice\
+    \ = msg.req.query.minprice;\n}\nif(msg.req.query.maxprice){\n\tmsg.maxprice =\
+    \ msg.req.query.maxprice;\n}\nif(msg.req.query.name){\n\tmsg.name = msg.req.query.name;\n\
+    }\nif(msg.req.query.types){\n\tmsg.types = msg.req.query.types;\n}\nif(msg.req.query.opennow){\n\
+    \tmsg.opennow = msg.req.query.opennow;\n}\nif(msg.req.query.zagatselected){\n\t\
+    msg.zagatselected = msg.req.query.zagatselected;\n}\nif(msg.req.query.placeid){\n\
+    \tmsg.placeid = msg.req.query.placeid;\n}\nif(msg.req.query.extensions){\n\tmsg.extensions\
+    \ = msg.req.query.extensions;\n}\ndelete msg.payload;\nreturn msg;"
+  id: 4a683e2f.fefc2
+  name: Move Query Params to Msg
+  outputs: 1
+  type: function
+  wires:
+  - [fdf08290.07906]
+  x: 502
+  y: 257
+  z: a37c852.f41b9f8
+- id: d0da304b.9e05d8
+  method: get
+  name: ''
+  swaggerDoc: fe328b6d.c4f568
+  type: http in
+  url: /places/text
+  wires:
+  - [b1d63a8f.f29438]
+  x: 182
+  y: 210
+  z: a37c852.f41b9f8
+- id: 7c6bf57.f65d28c
+  method: get
+  name: ''
+  swaggerDoc: 261fda9.28adba6
+  type: http in
+  url: /places/details
+  wires:
+  - [4a683e2f.fefc2]
+  x: 188
+  y: 257
+  z: a37c852.f41b9f8
+- func: "if(typeof(msg.payload) == typeof([])){\n    var results = [];\n    for(var\
+    \ i = 0; i < msg.payload.length; i++){\n\t    results[i] = msg.payload[i].detailsJson;\n\
+    \    }\n    msg.payload = {\n    \tresults: results,\n    \tstatus: msg.status,\n\
+    \    };\n}\n\nif(msg.html_attributions){\n\tmsg.payload.html_attributions = msg.html_attributions;\n\
+    }\nreturn msg;"
+  id: ba4fc504.5d70f
+  name: Convert msg to http out
+  outputs: 1
+  type: function
+  wires:
+  - [41a8416f.3ee9]
+  x: 1073
+  y: 212
+  z: a37c852.f41b9f8
+- func: "msg.payload = {\n    result: msg.payload,\n    status: msg.status\n};\nif(msg.html_attributions){\n\
+    \tmsg.payload.html_attributions = msg.html_attributions;\n}\nreturn msg;"
+  id: afe3a964.6655d8
+  name: Convert msg to http out
+  outputs: 1
+  type: function
+  wires:
+  - [41a8416f.3ee9]
+  x: 1072
+  y: 259
+  z: a37c852.f41b9f8

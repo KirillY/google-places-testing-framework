@@ -1,0 +1,123 @@
+swagger: '2.0'
+schemes:
+  - https
+host: maps.googleapis.com
+basePath: /maps/api/place
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: query
+    name: key
+paths:
+  /nearbysearch/json:
+    get:
+      tags: [GooglePlaces]
+      operationId: nearbysearch
+      summary: Google Places Nearby Search
+      consumes: application/json
+      deprecated: false
+      description: If passed a latitude/longitude coordinate set, the assembly will perform
+        a Places Nearby request, to discover businesses within a certain distance of the
+        given location.
+      parameters:
+      - {in: query, name: key, required: true, type: string}
+      - {in: query, name: location, required: true, type: string}
+      - {in: query, name: radius, required: false, type: integer}
+      - {in: query, name: keyword, required: false, type: string}
+      - {in: query, name: language, required: false, type: string}
+      - {in: query, name: minprice, required: false, type: integer}
+      - {in: query, name: maxprice, required: false, type: integer}
+      - {in: query, name: name, required: false, type: string}
+      - {in: query, name: opennow, required: false, type: boolean}
+      - {in: query, name: rankby, required: false, type: string}
+      - {in: query, name: type, required: false, type: string}
+      - {in: query, name: pagetoken, required: false, type: string}
+
+      produces: application/json
+      responses:
+        '200':
+          description: An array of results matching the supplied parameters.
+          schema: {$ref: '#/definitions/Nearbysearch'}
+        '400': # bloody Swagger doesn't allow to split responses in 2.0
+          description: Your request was malformed, either by missing or incorrect parameters.
+          schema:
+            properties:
+              error: {type: string}
+              status: {type: string}
+        '401':
+          description: You provided an API Key that is invalid, or is not authorized to
+            use the Google Places API
+          schema:
+            properties:
+              error: {type: string}
+              status: {type: string}
+        '429':
+          description: You have used the daily allotment of Google Places requests for
+            the provided API Key.
+          schema:
+            properties:
+              error: {type: string}
+              status: {type: string}
+        '500':
+          description: An unknown error occurred. Please try your request again.
+          schema:
+            properties:
+              error: {type: string}
+              status: {type: string}
+definitions:
+  Nearbysearch:
+    additionalProperties: False
+    properties:
+      html_attributions: {type: array}
+      next_page_token: {type: string}
+      results:
+        items:
+          properties:
+            alt_ids:
+              items:
+                properties:
+                  place_id: {type: string}
+                  scope: {type: string}
+                required: [place_id, scope]
+                type: object
+              type: array
+            geometry:
+              properties:
+                location:
+                  properties:
+                    lat: {type: number}
+                    lng: {type: number}
+                  required: [lat, lng]
+                  type: object
+              required: [location]
+              type: object
+            icon: {type: string, }
+            id: {type: string}
+            name: {type: string}
+            opening_hours:
+              properties:
+                open_now: {type: boolean}
+              required: [open_now]
+              type: object
+            photos:
+              items:
+                properties:
+                  height: {type: integer}
+                  html_attributions: {type: array}
+                  photo_reference: {type: string}
+                  width: {type: integer}
+                required: [height, html_attributions, photo_reference, width]
+                type: object
+              type: array
+            place_id: {type: string}
+            reference: {type: string}
+            scope: {type: string}
+            types:
+              items: {type: string}
+              type: array
+            vicinity: {type: string}
+          required: [geometry, icon, id, name, photos, place_id, reference, scope, types,
+                     vicinity]
+          type: object
+        type: array
+      status: {type: string}

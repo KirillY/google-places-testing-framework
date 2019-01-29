@@ -1,0 +1,23 @@
+Есть документация Google Places API
+ключ - AIzaSyCWOSz0D-dfNnfv7FJh6pP3dghHM9NmyuQ
+
+https://developers.google.com/places/web-service/intro?hl=ru
+
+Команды:
+
+- nearbysearch - https://developers.google.com/places/web-service/search?hl=ru
+
+Опционально:
+
+- photo - https://developers.google.com/places/web-service/photos?hl=ru
+
+Задания необходимо выполнять по очереди, но не обязательно выполнять их все:
+
+1) Реализовать наборы тестовых сценариев для команд (ограничиться json);
+Результат: файл с тестовыми сценариями
+2) В отчете описать запросы к API (в идеале с помощью утилиты curl, можно использовать curl <request> | jq '');
+Результат: файл с тестовыми сценариями и запросами к API
+3) Написать скрипт, автоматизирующий тестовые сценарии, обязательно с комментариями в коде;
+Результат: файл с тестовыми сценариями + файл .py с кодом
+4) Написать фреймворк с автотестами, запушить в публичный репозиторий на github или bitbucket.
+Результат: проект в github с тестовыми сценариями, readme.md<http://readme.md>, исходниками проекта.
