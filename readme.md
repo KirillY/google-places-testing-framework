@@ -31,7 +31,8 @@ pip install -r requirements.txt
 ## Usage
 ### 
 ```bash
-
+cd testsuites
+pytest -v
 ```
 
 ## License
