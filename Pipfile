@@ -85,6 +85,7 @@ PyYAML = "==3.13"
 "ruamel.yaml" = "==0.15.87"
 Send2Trash = "==1.5.0"
 Werkzeug = "==0.14.1"
+faker = "*"
 
 [requires]
 python_version = "3.7"
